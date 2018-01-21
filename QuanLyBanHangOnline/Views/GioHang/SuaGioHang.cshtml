@@ -1,0 +1,56 @@
+﻿@using QuanLyBanHangOnline.Models
+@model ItemGioHang
+@{
+    ViewBag.Title = "SuaGioHang";
+    Layout = "~/Views/Layout/_ProductLayout.cshtml";
+}
+
+    @{ List<ItemGioHang> listGH = ViewBag.GioHang as List<ItemGioHang>;}
+<table class="c col-md-9">
+    <tr style="border:1px solid red">
+        <td>Mã SP</td>
+        <td>Tên SP</td>
+        <td>Hình ảnh</td>
+        <td>Đơn giá</td>
+        <td>Số lượng</td>
+        <td>Thành tiền</td>
+        <td></td>
+    </tr>
+
+    @foreach (var item in listGH)
+    {
+        if(Model.MaSP==item.MaSP)
+        {
+            using(Html.BeginForm("CapNhatGioHang", "GioHang"))
+            {
+                
+            <tr style="border:1px solid red">
+
+            <td style=" font-weight:bold; text-align:center">@item.MaSP @Html.Hidden("MaSP", item.MaSP)</td>
+            <td style="font-weight:bold; text-align:center">@item.TenSP</td>
+            <td><img width="100" height="100" src="@Url.Content("~/Content/HinhAnh/"+item.HinhAnh)" /></td>
+            <td style="font-weight:bold; text-align:center">@item.DonGia.ToString("#,##") VNĐ</td>
+            <td style="font-weight:bold; text-align:center">@Html.TextBox("SoLuong", item.SoLuong) </td>
+            <td style="font-weight:bold; text-align:center">@item.ThanhTien.ToString("#,##") VNĐ</td>
+             <td> <input type="submit" value="Cập nhật" /></td>
+        </tr>
+            }
+        }
+        else
+        {
+            
+
+        <tr style="border:1px solid red">
+
+            <td style=" font-weight:bold; text-align:center">@item.MaSP</td>
+            <td style="font-weight:bold; text-align:center">@item.TenSP</td>
+            <td><img width="100" height="100" src="@Url.Content("~/Content/HinhAnh/"+item.HinhAnh)" /></td>
+            <td style="font-weight:bold; text-align:center">@item.DonGia.ToString("#,##") VNĐ</td>
+            <td style="font-weight:bold; text-align:center">@item.SoLuong</td>
+            <td style="font-weight:bold; text-align:center">@item.ThanhTien.ToString("#,##") VNĐ</td>
+        </tr>
+        }
+    }
+
+</table>  
+

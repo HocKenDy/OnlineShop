@@ -1,0 +1,23 @@
+﻿@using QuanLyBanHangOnline.Models
+@model IEnumerable<SanPham>
+@{
+    ViewBag.Title = "PhanLoaiThuongHieu";
+    Layout = "~/Views/Layout/_ProductLayout.cshtml";
+}
+@foreach(var item in Model)
+{
+    
+<div class="col-md-4 bottom-cd simpleCart_shelfItem">
+    <div class="product-at ">
+        <a href="single.html">
+            <img class="img-responsive" src="@Url.Content("~/Content/HinhAnh/"+item.HinhAnh)" alt="">
+            <div class="pro-grid">
+                <span class="buy-in">Mua</span>
+            </div>
+        </a>
+    </div>
+    <p class="tun">@item.MoTa</p>
+    <a href="@Url.Action("ThemGioHang", "GioHang", new {@maSP=item.MaSP, @strURL=Request.Url.ToString() })" class="item_add"><p class="number item_price"><i> </i>@item.DonGia.Value.ToString("#,##")</p></a>
+</div>
+}
+

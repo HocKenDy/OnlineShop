@@ -1,0 +1,131 @@
+﻿@using QuanLyBanHangOnline.Models;
+@model IEnumerable<SanPham>
+           @{
+               Random rd = new Random();
+               int so1 = rd.Next(0,7);
+               int so2 = rd.Next(8,15);
+               
+           }
+<div class="col-md-3 product-price">
+
+    <div class=" rsidebar span_1_of_left">
+        <div class="of-left">
+            <h3 class="cate">Danh mục</h3>
+        </div>
+        <ul class="menu">
+
+            @foreach (var group in Model.GroupBy(x => x.LoaiSanPham))
+            {
+                if (group.Key != null)
+                {
+                    <li class="item1">
+                        <a href="#">@group.Key.TenLoai </a>
+                        <ul class="cute" style="display: none;">
+                            @foreach (var item in group.GroupBy(y => y.NhaSanXuat))
+                            {
+                                if (item.Key != null)
+                                {
+                                    <li class="subitem3"><a href="@Url.Action("")">@item.Key.TenNSX</a></li>
+
+                                }
+                            }
+
+                        </ul>
+                    </li>
+                }
+
+            }
+        </ul>
+    </div>
+    <!--initiate accordion-->
+    <script type="text/javascript">
+        $(function () {
+            var menu_ul = $('.menu > li > ul'),
+                   menu_a = $('.menu > li > a');
+            menu_ul.hide();
+            menu_a.click(function (e) {
+                e.preventDefault();
+                if (!$(this).hasClass('active')) {
+                    menu_a.removeClass('active');
+                    menu_ul.filter(':visible').slideUp('normal');
+                    $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                } else {
+                    $(this).removeClass('active');
+                    $(this).next().stop(true, true).slideUp('normal');
+                }
+            });
+
+        });
+    </script>
+    <!---->
+    <div class="product-middle">
+
+        <div class="fit-top">
+            <h6 class="shop-top"></h6>
+            <a href="#" class="shop-now">SHOP NOW</a>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="sellers">
+        <div class="of-left-in">
+            <h3 class="tag">Tags</h3>
+        </div>
+        <div class="tags">
+            <ul>
+                @foreach (var tam in Model.GroupBy(x => x.LoaiSanPham))
+                {
+                    if (tam.Key != null)
+                    {
+                        <li><a href="#">@tam.Key.TenLoai</a></li>
+
+                    }
+                }
+
+                <div class="clearfix"> </div>
+            </ul>
+
+        </div>
+
+    </div>
+    <!---->
+    <div class="product-bottom">
+        <div class="of-left-in">
+            <h3 class="best">Bán chạy nhất</h3>
+        </div>
+        <div class="product-go">
+            <div class=" fashion-grid">
+                <a href="@Url.Action("XemChiTiet", "SanPham", new { @id = Model.ElementAt(so2).MaSP })"><img class="img-responsive " src="@Url.Content("~/Content/HinhAnh/"+Model.ElementAt(so2).HinhAnh)" alt=""></a>
+
+            </div>
+            <div class=" fashion-grid1">
+                <h6 class="best2">
+                    <a href="#">
+                       @Model.ElementAt(so2).MoTa
+                    </a>
+                </h6>
+
+                <span class=" price-in1">@Model.ElementAt(so2).DonGia.Value.ToString("#,##")</span>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+        <div class="product-go">
+            <div class=" fashion-grid">
+                <a href="@Url.Action("XemChiTiet", "SanPham", new { @id = Model.ElementAt(so1).MaSP })"><img class="img-responsive " src="@Url.Content("~/Content/HinhAnh/"+Model.ElementAt(so1).HinhAnh)" alt=""></a>
+
+            </div>
+            <div class="fashion-grid1">
+                <h6 class="best2">
+                    <a href="#">
+                        @Model.ElementAt(so1).MoTa
+                    </a>
+                </h6>
+
+                <span class=" price-in1">@Model.ElementAt(so1).DonGia.Value.ToString("#,##")</span>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+
+    </div>
+</div>

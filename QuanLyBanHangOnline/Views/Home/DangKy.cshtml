@@ -1,0 +1,66 @@
+﻿@using QuanLyBanHangOnline.Models;
+@using CaptchaMvc.HtmlHelpers;
+@using CaptchaMvc;
+@model ThanhVien
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Layout/_ProductLayout.cshtml";
+}
+<div class=" container">
+    <div class=" register">
+        <h1>Thông tin đăng ký</h1>
+        @using(Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+           
+            <div class="col-md-4 register-top-grid">
+              
+                <div>
+                    <span>Tài khoản</span>
+                    @Html.ValidationMessageFor(x => x.TaiKhoan)
+                    @Html.TextBoxFor(x=>x.TaiKhoan)
+                  
+                </div>
+                <div>
+                    <span>Mật khẩu</span>  
+                    @Html.TextBoxFor(x => x.MatKhau, new { @type="password"})
+                </div>
+                <div>
+                    <span>Họ tên</span>
+                    @Html.TextBoxFor(x => x.HoTen)
+                </div>
+                <div>
+                    <span>Địa chỉ</span>
+                   @Html.TextBoxFor(x => x.DiaChi)
+                </div>
+              
+            </div>
+            <div class="col-md-4 register-top-grid">
+                <div>
+                    <span>Email</span>
+                   @Html.TextBoxFor(x => x.Email)
+                </div>
+                <div>
+                    <span>Số điện thoại</span>
+                   @Html.TextBoxFor(x => x.SDT)
+                </div>
+                <div>
+                    <span>Câu hỏi</span>
+                    @Html.TextBoxFor(x => x.CauHoi)
+                </div>
+                <div>
+                    <span>Câu trả lời</span>
+                    @Html.TextBoxFor(x => x.CauTraLoi)
+                </div>
+                <div>@Html.Captcha(5)</div>
+                <input type="submit" value="submit" class="btn btn-success" style="padding-right:0">
+               
+            </div>
+            <div class="clearfix"> </div>
+        }
+    </div>
+</div>
+<div style="color:red;font-size:40px; font-family:Britannic; text-align:center">@ViewBag.ThongBao</div>
+
+
